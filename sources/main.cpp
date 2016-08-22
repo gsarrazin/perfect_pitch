@@ -4,9 +4,12 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+
+#include <QMediaPlayer>
  
 int main(int argc, char *argv[])
 {
+#if 0
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
@@ -72,5 +75,12 @@ int main(int argc, char *argv[])
  
 
     SDL_Quit();
+#else
+player = new QMediaPlayer;
+player->setMedia(QUrl::fromLocalFile("/home/gsarrazin/Projects/perfect_pitch/Notes_Piano-01.wav"));
+player->setVolume(50);
+player->play();
+delete player;
+#endif
     return 0;
 }
