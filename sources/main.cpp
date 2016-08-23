@@ -1,11 +1,14 @@
 #include <stdlib.h>
 #include <iostream>
+#if 0
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#endif
 
 #include <QMediaPlayer>
+#include <QSound>
  
 int main(int argc, char *argv[])
 {
@@ -76,11 +79,19 @@ int main(int argc, char *argv[])
 
     SDL_Quit();
 #else
-player = new QMediaPlayer;
-player->setMedia(QUrl::fromLocalFile("/home/gsarrazin/Projects/perfect_pitch/Notes_Piano-01.wav"));
-player->setVolume(50);
-player->play();
-delete player;
+    QSound::play("/local_scratch/gsarrazi/other_projects/perfect_pitch/sound/piano2.wav");
+    std::cout << "Play1 done" << std::endl;
+    QSound piano("/local_scratch/gsarrazi/other_projects/perfect_pitch/sound/piano2.wav");
+    piano.play();
+    std::cout << "Play2 done" << std::endl;
+    while (!piano.isFinished()) ;
+
+
+    QMediaPlayer *player = new QMediaPlayer;
+    player->setMedia(QUrl::fromLocalFile("/local_scratch/gsarrazi/other_projects/perfect_pitch/sound/piano2.wav"));
+    player->setVolume(50);
+    player->play();
+    delete player;
 #endif
     return 0;
 }
